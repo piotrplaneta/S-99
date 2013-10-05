@@ -41,4 +41,15 @@ object ListSolutions {
       case x => List(x)
     })
   }
+
+  def compress[A](l: List[A]): List[A] = {
+    val compressed = l.foldRight((List.empty[A], Option.empty[A]))((elem, acc) => {
+      acc._2 match {
+        case Some(x) if elem == x => acc
+        case _ => (elem :: acc._1, Some(elem))
+      }
+    })
+
+    compressed._1
+  }
 }
