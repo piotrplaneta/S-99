@@ -52,4 +52,14 @@ object ListSolutions {
 
     compressed._1
   }
+
+  def pack[A](l: List[A]): List[List[A]] = {
+    l.foldRight(List.empty[List[A]])((elem, acc) => acc match {
+      case l :: ls if l.head == elem => (elem :: l) :: ls
+      case _ => List(elem) :: acc
+    })
+  }
+
+  def encode[A](l: List[A]): List[(Int, A)] =
+    pack(l).map(elem => (elem.length, elem.head))
 }
