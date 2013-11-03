@@ -62,4 +62,7 @@ object ListSolutions {
 
   def encode[A](l: List[A]): List[(Int, A)] =
     pack(l).map(elem => (elem.length, elem.head))
+
+  def decode[A](l: List[(Int, A)]): List[A] =
+    l.flatMap(elem => List.fill(elem._1)(elem._2))
 }
